@@ -1,0 +1,30 @@
+﻿@model List<CustomerFeedBackViewModel>
+@using Resume.Domain.ViewModels.CustomerFeedBack;
+@using Resume.Application.Static_Tools
+
+
+<!-- Testimonials -->
+<div class="section">
+    <h2 class="title title--h2">مشتریان می گویند</h2>
+    <div class="swiper-container js-carousel-review">
+        <div class="swiper-wrapper">
+
+
+            @foreach (CustomerFeedBackViewModel item in Model)
+            {
+                <div class="swiper-slide review-item">
+                    <svg class="avatar avatar--80" viewBox="0 0 84 84">
+                        <g class="avatar__hexagon">
+                            <image xlink:href="@(string.IsNullOrEmpty(item.Avatar) ? FilePaths.DefaultAvatar : $"{FilePaths.CustomerFeedBackAvatar}{item.Avatar}" )" height="100%" width="100%"></image>
+                        </g>
+                    </svg>
+                    <h4 class="title title--h3">@item.Name</h4>
+                    <p class="review-item__caption">@item.Description</p>
+                </div>
+            }
+
+        </div>
+
+        <div class="swiper-pagination"></div>
+    </div>
+</div>

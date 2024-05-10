@@ -1,4 +1,10 @@
-﻿        <!-- Menu -->
+﻿@{
+    var controllerName = ViewContext.RouteData.Values["Controller"].ToString();
+    var actionName = ViewContext.RouteData.Values["Action"].ToString();
+}
+
+
+<!-- Menu -->
 <div class="circle-menu">
     <div class="hamburger">
         <div class="line"></div>
@@ -10,10 +16,9 @@
 
 <div class="nav-wrap">
     <ul class="nav">
-        <li class="nav__item"><a class="active" href="about.html">درباره  من</a></li>
-        <li class="nav__item"><a href="resume.html">رزومه</a></li>
-        <li class="nav__item"><a href="portfolio.html">نمونه کارها</a></li>
-        <li class="nav__item"><a href="blog.html">وبلاگ</a></li>
-        <li class="nav__item"><a href="contact.html">تماس با من</a></li>
+        <li class="nav__item"><a asp-controller="Home" asp-action="Index" class="@(controllerName == "Home" && actionName == "Index" ? "active" : "")">درباره  من</a></li>
+        <li class="nav__item"><a asp-controller="Resume" asp-action="Index" class="@(controllerName == "Resume" && actionName == "Index" ? "active" : "")">رزومه</a></li>
+        <li class="nav__item"><a asp-controller="Portfolio" asp-action="Index" class="@(controllerName == "Portfolio" && actionName == "Index" ? "active" : "")">نمونه کارها</a></li>
+        <li class="nav__item"><a asp-controller="Contact" asp-action="Index" class="@(controllerName == "Contact" && actionName == "Index" ? "active" : "")">تماس با من</a></li>
     </ul>
 </div>

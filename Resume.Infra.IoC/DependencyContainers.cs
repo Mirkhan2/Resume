@@ -9,6 +9,11 @@ namespace Resume.Infra.IoC
 		public static void  RegisterServices(IServiceCollection services)
 		{
 			services.AddScoped<IThingIDoService, ThingIDoService>();
-		}
-	}
+            services.AddScoped<ICustomerFeedBackService, CustomerFeedBackService>();
+			services.AddScoped<ICustomerLogoService, CustomerLogoService>();
+			services.AddScoped<IEducationService, EducationService>();
+			services.AddScoped<IExperienceService, ExperienceService>();
+
+        }
+    }
 }

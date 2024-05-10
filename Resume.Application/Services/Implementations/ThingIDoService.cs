@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Resume.Application.Services.Interfaces;
 using Resume.Domain.ViewModels.ThingIDo;
 using Resume.Infra.Data.Context;
@@ -23,9 +24,9 @@ namespace Resume.Application.Services.Implementations
 		}
 
         #endregion
-        public List<ThingIDoListViewModel> GetAllThingIDoForIndex()
+        public async  Task<List<ThingIDoListViewModel>> GetAllThingIDoForIndex()
 		{
-			List<ThingIDoListViewModel> thingIdos = _context
+			List<ThingIDoListViewModel> thingIdos = await _context
 				.ThingIDos
 				.OrderBy(t => t.Order)
 				.Select(t => new ThingIDoListViewModel
@@ -38,7 +39,7 @@ namespace Resume.Application.Services.Implementations
 					Title = t.Title
 
 				})
-				.ToList();
+				.ToListAsync();
 
 			return thingIdos;
 		}

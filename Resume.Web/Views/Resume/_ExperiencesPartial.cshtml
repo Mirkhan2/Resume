@@ -1,0 +1,16 @@
+﻿@using Resume.Domain.ViewModels.Experience
+@model List<ExperienceViewModel>
+
+<div class="section">
+    <h2 class="title title--h2"><img class="title-icon" src="http://netgon.net/artstyles/v-card2/assets/icons/icon-experience.svg" alt=""> تجربه</h2>
+    <div class="timeline">
+        @foreach (ExperienceViewModel item in Model)
+        {
+            <article class="timeline__item">
+                <h5 class="title title--h3 timeline__title">@item.Title</h5>
+                <span class="timeline__period">@item.StartDate - @item.EndDate</span>
+                <p class="timeline__description">@item.Description</p>
+            </article>
+        }
+    </div>
+</div>

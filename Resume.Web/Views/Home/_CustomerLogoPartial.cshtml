@@ -1,0 +1,23 @@
+﻿@using Resume.Domain.ViewModels.CustomerLogo
+@using Resume.Application.Static_Tools
+@model List<CustomerLogoViewModel>
+
+
+<div class="section">
+    <h2 class="title title--h2">مشتری</h2>
+    <div class="swiper-container js-carousel-clients">
+        <div class="swiper-wrapper">
+
+            @foreach (CustomerLogoViewModel item in Model)
+            {
+                <!-- Item client -->
+                <div class="swiper-slide">
+                    <a href="@item.Link"><img src="@(FilePaths.CustomerLogo + item.Logo)" alt="@item.LogoAlt"></a>
+                </div>
+            }
+
+        </div>
+
+        <div class="swiper-pagination"></div>
+    </div>
+</div>

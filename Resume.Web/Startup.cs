@@ -37,6 +37,7 @@ namespace Resume.Web
 
 			#region Services
 			RegisterServices(services);
+
 			#endregion
 		}
 

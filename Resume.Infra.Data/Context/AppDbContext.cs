@@ -18,10 +18,14 @@ namespace Resume.Infra.Data.Context
 		#endregion
 		#region DbSet
 		public DbSet<ThingIDo> ThingIDos { get; set; }
+		public DbSet<CustomerFeedBack> customerFeedBacks { get; set; }
+		public DbSet<CustomerLogo> CustomerLogos { get; set; }
+		public DbSet<Education> Educations { get; set; }
+		public DbSet<Experience> Experiences { get; set; }
 
-		#endregion
-		#region On Model Cretaing
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        #endregion
+        #region On Model Cretaing
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
 			{

@@ -1,0 +1,27 @@
+﻿@* @using Resume.Domain.ViewModels.Page.ResumePageViewModel *@
+@{
+    ViewData["Title"] = "Resume";
+}
+
+<div class="section mt-0">
+    <h1 class="title title--h1 title__separate">رزومه</h1>
+</div>
+
+
+@if (Model.Educations != null && Model.Educations.Any())
+{
+    <partial name="_EducationPartial" model="@Model.Educations" />
+}
+
+
+@if (Model.Experiences != null && Model.Experiences.Any())
+{
+    <partial name="_ExperiencesPartial" model="@Model.Experiences" />
+}
+
+
+
+@if (Model.Skills != null && Model.Skills.Any())
+{
+    <partial name="_SkillsPartial" model="@Model.Skills" />
+}
