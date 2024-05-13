@@ -1,10 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
+using GoogleReCaptcha.V3;
+using GoogleReCaptcha.V3.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,11 +37,20 @@ namespace Resume.Web
 			#region Services
 			RegisterServices(services);
 
+			#region Google Recaptcha
+			services.AddHttpClient<ICaptchaValidator, GoogleReCaptchaValidator>();
+
 			#endregion
-		}
+			#endregion
+
+			#region Encoder
+			services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.All }));
+            #endregion
+
+        }
 
 
-		public static void RegisterServices(IServiceCollection services)
+        public static void RegisterServices(IServiceCollection services)
 		{
 			//services.AddMvc();
 			DependencyContainers.RegisterServices(services);
@@ -70,7 +78,12 @@ namespace Resume.Web
 
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapControllerRoute(
+                endpoints.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}{controller=Home}/{action=Index}/{id?}");
+
+
+                endpoints.MapControllerRoute(
 					name: "default",
 					pattern: "{controller=Home}/{action=Index}/{id?}");
 			});

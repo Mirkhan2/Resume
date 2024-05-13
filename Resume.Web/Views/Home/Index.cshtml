@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Resume.Domain.ViewModels.Page.IndexPageViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -18,50 +19,13 @@
 }
 
 
-@if (Model.CustomerFeedbakcList != null && Model.CustomerFeedbakcList.Any())
+@if (Model.CustomerFeedBackList != null && Model.CustomerFeedBackList.Any())
 {
-    <partial name="_CustomerFeedbackPartial" model="@Model.CustomerFeedbakcList" />
+    <partial name="_CustomerFeedbackPartial" model="@Model.CustomerFeedBackList" />
 }
 
 
-
-<!-- Clients -->
-<div class="section">
-    <h2 class="title title--h2">مشتری</h2>
-    <div class="swiper-container js-carousel-clients">
-        <div class="swiper-wrapper">
-            <!-- Item client -->
-            <div class="swiper-slide">
-                <a href="#"><img src="/site/img/download.jpg" alt="لوگو"></a>
-            </div>
-
-            <!-- Item client -->
-            <div class="swiper-slide">
-                <a href="#"><img src="/site/img/download.jpg" alt="لوگو"></a>
-            </div>
-
-            <!-- Item client -->
-            <div class="swiper-slide">
-                <a href="#"><img src="/site/img/download.jpg" alt="لوگو"></a>
-            </div>
-
-            <!-- Item client -->
-            <div class="swiper-slide">
-                <a href="#"><img src="/site/img/download.jpg" alt="لوگو"></a>
-            </div>
-
-
-            <div class="swiper-slide">
-                <a href="#"><img src="/site/img/download.jpg" alt="لوگو"></a>
-            </div>
-
-            <!-- Item client -->
-            <div class="swiper-slide">
-                <a href="#"><img src="/site/img/download.jpg" alt="لوگو"></a>
-            </div>
-
-        </div>
-
-        <div class="swiper-pagination"></div>
-    </div>
-</div>
+@if (Model.CustomerLogoList != null && Model.CustomerLogoList.Any())
+{
+    <partial name="_CustomerLogoPartial" model="@Model.CustomerLogoList" />
+}

@@ -13,6 +13,11 @@ namespace Resume.Infra.IoC
 			services.AddScoped<ICustomerLogoService, CustomerLogoService>();
 			services.AddScoped<IEducationService, EducationService>();
 			services.AddScoped<IExperienceService, ExperienceService>();
+			services.AddScoped<ISkillService, SkillService>();
+            services.AddScoped<ISocialMediaService, SocialMediaService>();
+            services.AddScoped<IInformationService, InformationService>();
+            services.AddScoped<IMessageService, MessageService>();
+
 
         }
     }

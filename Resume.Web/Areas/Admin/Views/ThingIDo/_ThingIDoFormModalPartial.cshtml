@@ -1,0 +1,74 @@
+﻿@model Resume.Domain.ViewModels.ThingIDo.CreateOrEditThingIDoViewModel
+
+@{
+    bool isCreate = Model.Id == 0 ? true : false;
+}
+
+
+<form id="ThingIDoForm" asp-area="Admin" asp-controller="ThingIDo" asp-action="SubmitThingIDoFormModal"
+      data-ajax="true" data-ajax-begin="StartLoading()" data-ajax-success="ThingIDoFormSubmited">
+
+    <div class="modal-header">
+        <h5 class="modal-title">@(isCreate ? "ایجاد" : "ویرایش")</h5>
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-12">
+
+
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <div class="controls">
+                        <input type="text" asp-for="Title" class="form-control">
+                    </div>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Icon"></label>
+                    <div class="controls">
+                        <input type="text" asp-for="Icon" class="form-control">
+                    </div>
+                    <span asp-validation-for="Icon" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ColumnLg"></label>
+                    <div class="controls">
+                        <input type="number" asp-for="ColumnLg" class="form-control">
+                    </div>
+                    <span asp-validation-for="ColumnLg" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Order"></label>
+                    <div class="controls">
+                        <input type="number" asp-for="Order" class="form-control">
+                    </div>
+                    <span asp-validation-for="Order" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <div class="controls">
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                    </div>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-bold btn-pure float-right @(isCreate ? "btn-success" : "btn-warning")">@(isCreate ? "ایجاد" : "ویرایش")"</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</form>

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html lang="fa">
+
+<head>
+    <partial name="_AdminHeaderRefrencesPartial" />
+    @RenderSection("Style", false)
+</head>
+
+<body class="hold-transition skin-info-light fixed sidebar-mini rtl">
+
+    <div class="wrapper">
+
+        <partial name="_AdminHeaderPartial" />
+        <partial name="_AdminSidebarPartial" />
+
+
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+
+        <div class="control-sidebar-bg"></div>
+
+    </div>
+
+    <partial name="_AdminFooterRefrencesPartial" />
+    <partial name="_MessagePartial" />
+
+    @RenderSection("Scsript",false)
+
+</body>
+
+</html>

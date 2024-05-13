@@ -1,0 +1,89 @@
+﻿@model Resume.Domain.ViewModels.Message.CreateMessageViewModel
+@using Resume.Domain.ViewModels.Information
+
+@{
+    bool? formSubmitResult = ViewData["FormSubmitResult"] as bool?;
+    var information = ViewData["Information"] as InformationViewModel;
+}
+
+@section Script{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <partial name="_CaptchaScriptPartial" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (formSubmitResult != null && formSubmitResult == true)
+    {
+        <script>
+            Swal.fire({
+                title: 'موفق',
+                text: 'پیام شما با موفقیت ارسال شد.',
+                icon: 'success',
+                confirmButtonText: 'باشه'
+            });
+
+            document.getElementById("Name").value = "";
+            document.getElementById("Email").value = "";
+            document.getElementById("Text").value = "";
+        </script>
+    }
+    else if (formSubmitResult != null && formSubmitResult == false)
+    {
+        <script>
+            Swal.fire({
+                title: 'ناموفق',
+                text: 'recaptcha شما تایید نشد دوباره سعی کنید.',
+                icon: 'warning',
+                confirmButtonText: 'باشه'
+            });
+        </script>
+    }
+
+}
+
+@if (!string.IsNullOrEmpty(information.MapSrc))
+{
+    <div class="section mt-0">
+        <h1 class="title title--h1 title__separate">تماس با من</h1>
+    </div>
+    <div class="map section">
+        <iframe src="@information.MapSrc" height="450" style="border:0;" allowfullscreen=""></iframe>
+    </div>
+}
+
+
+<h2 class="title title--h2">فرم تماس</h2>
+
+<form class="contact-form" asp-controller="Contact" asp-action="Index" method="post">
+    <input type="hidden" asp-for="Captcha" />
+
+    <div class="row">
+
+        <div class="form-group col-12 col-md-6">
+            <i class="font-icon icon-user"></i>
+            <input asp-for="Name" class="input input__icon form-control" placeholder="نام و نام خانوادگی">
+            <span class="text-danger" asp-validation-for="Name"></span>
+        </div>
+
+        <div class="form-group col-12 col-md-6">
+            <i class="font-icon icon-at"></i>
+            <input asp-for="Email" class="input input__icon form-control" placeholder="آدرس ایمیل" />
+            <span class="text-danger" asp-validation-for="Email"></span>
+        </div>
+
+        <div class="form-group col-12 col-md-12">
+            <textarea asp-for="Text" class="textarea form-control" placeholder="پیغام شما" rows="4"></textarea>
+            <span class="text-danger" asp-validation-for="Text"></span>
+        </div>
+
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12 col-md-12 order-1 order-md-2 text-left">
+            <button type="submit" class="btn"><i class="font-icon icon-send"></i>ارسال پیام</button>
+        </div>
+    </div>
+
+    <div class="row mb-5"></div>
+
+</form>

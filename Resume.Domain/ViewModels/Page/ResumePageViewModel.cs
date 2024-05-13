@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Resume.Domain.ViewModels.Education;
 using Resume.Domain.ViewModels.Experience;
+using Resume.Domain.ViewModels.Skil;
 
 namespace Resume.Domain.ViewModels.Page
 {
@@ -12,5 +13,6 @@ namespace Resume.Domain.ViewModels.Page
     {
         public List<EducationViewModel> Educations { get; set; }
         public List<ExperienceViewModel> Experiences { get; set; }
+        public List<SkillViewModel> Skills { get; set; }
     }
 }

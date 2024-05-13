@@ -1,0 +1,87 @@
+﻿@model Resume.Domain.ViewModels.ViewComponent.SideBarViewModel
+@using Resume.Domain.ViewModels.SocialMedia
+@using Resume.Application.Static_Tools
+
+
+<aside class="sidebar js-scroll">
+    <div>
+
+        <div class="avatar-wrap">
+            <svg class="avatar avatar--180" viewBox="0 0 188 188">
+                <g class="avatar__box">
+                    <image xlink:href="@(string.IsNullOrEmpty(Model.information.Avatar) ? FilePaths.DefaultAvatar : $"{FilePaths.Avatar}{Model.information.Avatar}")" height="100%" width="100%"></image>
+                </g>
+            </svg>
+        </div>
+
+        <div class="text-center">
+
+            @if (!string.IsNullOrEmpty(Model.information.Name))
+            {
+                <h3 class="title sidebar__user-name">@Model.information.Name</h3>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.information.Job))
+            {
+                <div class="badge badge--gray">@Model.information.Job</div>
+            }
+
+            @if (Model.SocialMedias != null && Model.SocialMedias.Any())
+            {
+                <div class="social">
+                    @foreach (SocialMediaViewModel item in Model.SocialMedias)
+                    {
+                        <a class="social__link" href="@item.Link"><i class="font-icon icon-@item.Icon"></i></a>
+                    }
+                </div>
+            }
+
+        </div>
+
+
+        <ul class="contact-block">
+
+
+            @if (!string.IsNullOrEmpty(Model.information.DateOfBirth))
+            {
+                <li class="contact-block__item" data-toggle="tooltip" data-placement="top" title="روز تولد">
+                    <i class="font-icon icon-calendar2"></i>@Model.information.DateOfBirth
+                </li>
+            }
+
+
+            @if (!string.IsNullOrEmpty(Model.information.Address))
+            {
+                <li class="contact-block__item" data-toggle="tooltip" data-placement="top" title="نشانی">
+                    <i class="font-icon icon-map-pin"></i>@Model.information.Address
+                </li>
+            }
+
+
+            @if (!string.IsNullOrEmpty(Model.information.Email))
+            {
+                <li class="contact-block__item" data-toggle="tooltip" data-placement="top" title="پست الکترونیک">
+                    <a href="mailto:example@mail.com"><i class="font-icon icon-mail"></i>@Model.information.Email</a>
+                </li>
+            }
+
+
+            @if (!string.IsNullOrEmpty(Model.information.Phone))
+            {
+                <li class="contact-block__item" data-toggle="tooltip" data-placement="top" title="تلفن">
+                    <i class="font-icon icon-smartphone"></i>@Model.information.Phone
+                </li>
+            }
+
+        </ul>
+
+    </div>
+
+
+    @if (!string.IsNullOrEmpty(Model.information.ResumeFile))
+    {
+        <a class="btn" href="@($"{FilePaths.Resume}{Model.information.ResumeFile}")" download><i class="font-icon icon-download"></i>رزومه را بارگیری کنید.</a>
+    }
+
+
+</aside>

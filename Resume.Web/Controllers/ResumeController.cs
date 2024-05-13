@@ -10,10 +10,12 @@ namespace Resume.Web.Controllers
         #region Constructor
         private readonly IEducationService _educationService;
         private readonly IExperienceService _experienceService;
-        public ResumeController(IEducationService educationService, IExperienceService experienceService)
+        private readonly ISkillService _skillService;
+        public ResumeController(IEducationService educationService, IExperienceService experienceService,ISkillService skillService)
         {
             _educationService = educationService;
             _experienceService = experienceService;
+            _skillService = skillService;
 
         }
 
@@ -24,7 +26,8 @@ namespace Resume.Web.Controllers
             ResumePageViewModel model = new ResumePageViewModel()
             {
                 Educations = await _educationService.GetAllEducations(),
-                Experiences = await _experienceService.GetAllExperiences()
+                Experiences = await _experienceService.GetAllExperiences(),
+                Skills = await _skillService.GetAllSkills()
 
             };
             return View(model);

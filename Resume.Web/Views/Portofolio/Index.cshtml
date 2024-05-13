@@ -1,0 +1,46 @@
+﻿@using Resume.Domain.ViewModels.Portofolio;
+@using Resume.Application.Static_Tools;
+
+
+<div class="section mt-0">
+    <h1 class="title title--h1 title__separate">نمونه کارها</h1>
+</div>
+
+@if (Model.PortfolioCategories != null && Model.PortfolioCategories.Any())
+{
+    <div class="select section">
+        <span class="placeholder">دسته را انتخاب کنید</span>
+        <ul class="filter">
+            <li class="filter__item">دسته</li>
+            <li class="filter__item active" data-filter="*"><a class="filter__link active" href="#filter">همه</a></li>
+            @foreach (PortofolioCategoryViewModel item in Model.PortfolioCategories)
+            {
+                <li class="filter__item" data-filter=".category-@item.Name"><a class="filter__link" href="#filter">@item.Title</a></li>
+            }
+        </ul>
+        <input type="hidden" name="changemetoo">
+    </div>
+}
+
+
+@if (Model.Portfolios != null && Model.Portfolios.Any())
+{
+
+    <div class="gallery-grid js-grid js-filter-container">
+        <div class="gutter-sizer"></div>
+
+        @foreach (PortofolioViewModel item in Model.Portfolios)
+        {
+            <figure class="gallery-grid__item category-@item.PortfolioCategoryName">
+                <div class="gallery-grid__image-wrap">
+                    <img class="gallery-grid__image cover lazyload" src="@($"{FilePaths.Portfolio}{item.Image}")" data-zoom="" alt="@item.ImageAlt">
+                </div>
+                <figcaption class="gallery-grid__caption">
+                    <h4 class="title title--h4 gallery-grid__title"><a href="@(!string.IsNullOrEmpty(item.Link)? item.Link : "#")">@item.Title</a></h4>
+                    <span class="gallery-grid__category">@item.PortfolioCategoryName</span>
+                </figcaption>
+            </figure>
+        }
+
+    </div>
+}

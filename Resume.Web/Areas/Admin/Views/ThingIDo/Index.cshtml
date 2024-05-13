@@ -1,0 +1,87 @@
+﻿@model List<ThingIDoListViewModel>
+@using Resume.Domain.ViewModels.ThingIDo
+
+@{
+    ViewData["Title"] = "لیست کارهایی که انجام میدهم";
+}
+
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="page-title">@ViewData["Title"]</h3>
+        </div>
+        <div class="right-title">
+            <button type="button" onclick="LoadThingIDoFormModal(0)" class="btn btn-circle btn-success mb-5"><i class="mdi mdi-plus"></i></button>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover no-wrap data-table">
+                            <thead>
+                                <tr class="bg-secondary">
+                                    <th>عنوان</th>
+                                    <th>توضیحات</th>
+                                    <th>سایز عرض</th>
+                                    <th>الویت</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (Model != null && Model.Any())
+                                {
+                                    @foreach (ThingIDoListViewModel item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Title</td>
+                                            <td>@item.Description</td>
+                                            <td>@item.ColumnLg</td>
+                                            <td>@item.Order</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="btn btn-icon-circle btn-warning">
+                                                    <i class="ti-marker-alt"></i>
+                                                </a>
+                                                <a href="javascript:void(0)" class="btn btn-icon-circle btn-danger">
+                                                    <i class="ti-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- /.content -->
+
+
+<div class="box">
+    <div class="box-header with-border">
+        <h4 class="box-title">Left Modal</h4>
+    </div>
+    <div class="box-body">
+        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-left">
+            Launch demo modal
+        </button>
+
+    </div>
+</div>
+
+
+

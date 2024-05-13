@@ -15,7 +15,7 @@
 
         <div class="wrapper">
 
-            <partial name="_SidebarPartial" />
+            @await Component.InvokeAsync("SideBar")
 
             <div class="content js-scroll">
                 @RenderBody()
@@ -26,6 +26,8 @@
     </main>
 
     <partial name="_FooterRefrencesPartial" />
+
+    @RenderSection("Script", false)
 
 </body>
 
