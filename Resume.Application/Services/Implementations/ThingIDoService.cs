@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Resume.Application.Services.Interfaces;
+using Resume.Domain.Models;
 using Resume.Domain.ViewModels.ThingIDo;
 using Resume.Infra.Data.Context;
 
@@ -24,6 +25,12 @@ namespace Resume.Application.Services.Implementations
 		}
 
         #endregion
+
+        public async Task<ThingIDo> GetThingIDoById(long id)
+        {
+			return await _context.ThingIDos.FirstOrDefaultAsync(  t => t.Id == id);
+        }
+
         public async  Task<List<ThingIDoListViewModel>> GetAllThingIDoForIndex()
 		{
 			List<ThingIDoListViewModel> thingIdos = await _context
@@ -43,5 +50,40 @@ namespace Resume.Application.Services.Implementations
 
 			return thingIdos;
 		}
-	}
+
+        public async Task<bool> CreateOrEditThingIDo(CreateOrEditThingIDoViewModel thingIDo)
+        {	
+			if(thingIDo.Id == 0)
+			{
+				var newThingIDo = new ThingIDo()
+				{
+					ColumnLg = thingIDo.ColumnLg,
+					Description = thingIDo.Description,
+					Order = thingIDo.Order,
+					Icon = thingIDo.Icon,
+					Title = thingIDo.Title
+
+				};
+
+				await _context.ThingIDos.AddAsync(newThingIDo);
+				await _context.SaveChangesAsync();
+				return true;
+
+			}
+			ThingIDo currentThingIdo = await GetThingIDoById(thingIDo.Id);
+
+			if (currentThingIdo == null) return false;
+
+			currentThingIdo.ColumnLg = thingIDo.ColumnLg;
+			currentThingIdo.Description = thingIDo.Description;
+			currentThingIdo.Icon = thingIDo.Icon;
+			currentThingIdo.Order = thingIDo.Order;
+			currentThingIdo.Title = thingIDo.Title;
+
+			_context.ThingIDos.Update(currentThingIdo);
+			await _context.SaveChangesAsync();
+
+			return true;
+        }
+    }
 }
