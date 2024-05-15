@@ -85,5 +85,25 @@ namespace Resume.Application.Services.Implementations
 
 			return true;
         }
+
+        public Task<CreateOrEditThingIDoViewModel> FillCreateOrEditThingIDoViewModel(long id)
+        {
+
+            if (id == 0) return new CreateOrEditThingIDoViewModel() { Id = 0 };
+
+            ThingIDo thingIDo = await GetThingIDoById(id);
+
+            if (thingIDo == null) return new CreateOrEditThingIDoViewModel() { Id = 0 };
+
+            return new CreateOrEditThingIDoViewModel()
+            {
+                Id = thingIDo.Id,
+                ColumnLg = thingIDo.ColumnLg,
+                Description = thingIDo.Description,
+                Icon = thingIDo.Icon,
+                Order = thingIDo.Order,
+                Title = thingIDo.Title
+            };
+        }
     }
 }

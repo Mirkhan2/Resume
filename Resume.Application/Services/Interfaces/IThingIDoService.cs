@@ -15,5 +15,8 @@ namespace Resume.Application.Services.Interfaces
 		Task<List<ThingIDoListViewModel>> GetAllThingIDoForIndex();
 
 		Task<bool> CreateOrEditThingIDo(CreateOrEditThingIDoViewModel thingIDo);
-	}
+        Task<CreateOrEditThingIDoViewModel> FillCreateOrEditThingIDoViewModel(long id);
+
+
+    }
 }
