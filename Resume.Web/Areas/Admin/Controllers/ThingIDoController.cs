@@ -31,5 +31,23 @@ namespace Resume.Web.Areas.Admin.Controllers
 
             return PartialView("_ThingIDoFormModalPartial", result);
         }
+        public async Task<IActionResult> SubmitThingIDoFormModal(CreateOrEditThingIDoViewModel thingIDo)
+        {
+            var result = await _thingIDOService.CreateOrEditThingIDo(thingIDo);
+
+            if (result) return new JsonResult(new {status = "Success"});
+
+            return new JsonResult(new { status = " Error"});
+        }
+        public async Task<IActionResult> DeleteThingIDO(long id)
+        {
+            var result = await _thingIDOService.DeleteThingIDo(id);
+            if (true) return new JsonResult ( new { status = "Success" } );
+
+            return new JsonResult(new { status = "Error" });
+            
+
+            
+        }
     }
 }

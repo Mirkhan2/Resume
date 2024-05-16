@@ -1,0 +1,73 @@
+﻿@model List<EducationViewModel>
+@using Resume.Domain.ViewModels.Education
+
+@{
+    ViewData["Title"] = "لیست تحصیلات";
+}
+
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="page-title">@ViewData["Title"]</h3>
+        </div>
+        <div class="right-title">
+            <button type="button" onclick="LoadEducationFormModal(0)" class="btn btn-circle btn-success mb-5"><i class="mdi mdi-plus"></i></button>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="box">
+                <div class="box-body" id="data-table-box">
+                    <div class="table-responsive">
+                        <table class="table table-hover no-wrap data-table">
+                            <thead>
+                                <tr class="bg-secondary">
+                                    <th>عنوان</th>
+                                    <th>توضیحات</th>
+                                    <th>تاریخ شروع</th>
+                                    <th>تاریخ پایان</th>
+                                    <th>الویت</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (Model != null && Model.Any())
+                                {
+                                    @foreach (EducationViewModel item in Model)
+                                    {
+                                        <tr id="ListItem-@(item.Id)">
+                                            <td>@item.Title</td>
+                                            <td>@item.Description</td>
+                                            <td>@item.StartDate</td>
+                                            <td>@item.EndDate</td>
+                                            <td>@item.Order</td>
+                                            <td>
+                                                <button onclick="LoadEducationFormModal(@item.Id)" class="btn btn-icon-circle btn-warning">
+                                                    <i class="ti-marker-alt"></i>
+                                                </button>
+                                                <button onclick="DeleteEducation(@item.Id)" class="btn btn-icon-circle btn-danger">
+                                                    <i class="ti-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- /.content -->

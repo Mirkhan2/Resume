@@ -16,6 +16,7 @@ namespace Resume.Application.Services.Interfaces
 
 		Task<bool> CreateOrEditThingIDo(CreateOrEditThingIDoViewModel thingIDo);
         Task<CreateOrEditThingIDoViewModel> FillCreateOrEditThingIDoViewModel(long id);
+		Task<bool> DeleteThingIDo(long id);
 
 
     }
