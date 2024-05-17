@@ -1,0 +1,62 @@
+﻿@model Resume.Domain.ViewModels.Skill.CreateOrEditSkillViewModel
+
+@{
+    bool isCreate = Model.Id == 0 ? true : false;
+}
+
+
+<form id="SkillForm" asp-area="Admin" asp-controller="Skill" asp-action="SubmitSkillFormModal"
+      data-ajax="true" data-ajax-begin="StartLoading()" data-ajax-success="SkillFormSubmited">
+
+    <div class="modal-header">
+        <h5 class="modal-title">@(isCreate ? "ایجاد" : "ویرایش")</h5>
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-12">
+
+                @if (!isCreate)
+                {
+                    <input type="hidden" asp-for="Id" />
+                }
+
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <div class="controls">
+                        <input type="text" asp-for="Title" class="form-control">
+                    </div>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Percent"></label>
+                    <div class="controls">
+                        <input type="text" asp-for="Percent" class="form-control">
+                    </div>
+                    <span asp-validation-for="Percent" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Order"></label>
+                    <div class="controls">
+                        <input type="number" asp-for="Order" class="form-control">
+                    </div>
+                    <span asp-validation-for="Order" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-bold btn-pure float-right @(isCreate ? "btn-success" : "btn-warning")">@(isCreate ? "ایجاد" : "ویرایش")</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</form>

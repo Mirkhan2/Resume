@@ -38,11 +38,15 @@ namespace Resume.Domain.Models
         [Display(Name = "الویت")]
         public int Order { get; set; } = 0;
 
+      
+
 
         public long PortfolioCategoryId { get; set; }
         public PortfolioCategory PortfolioCategory { get; set; }
 
     }
+
+
     public class PortfolioCategory
     {
 
@@ -66,7 +70,7 @@ namespace Resume.Domain.Models
         public int Order { get; set; } = 0;
 
 
-        ICollection<Portofolio> Portofolios { get; set; }
+        ICollection<Portofolio> Portfolios { get; set; }
     }
 
 

@@ -17,65 +17,64 @@ namespace Resume.Application.Services.Implementations
 
         #region Constructor
         private readonly AppDbContext _context;
-
+       
         public CustomerFeedBackService(AppDbContext context)
         {
             _context = context;
         }
 
-  
         #endregion
 
-
-
-
-        public async  Task<CustomerFeedBack> GetCustomerFeedbackById(long id)
+        public async Task<CustomerFeedBack> GetCustomerFeedbackById(long id)
         {
-                return await _context.customerFeedBacks.FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.customerFeedBacks.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        
-        async Task<List<CustomerFeedBackViewModel>> ICustomerFeedBackService.GetCustomerFeedBackForIndex()
+        public async Task<List<CustomerFeedBackViewModel>> GetCustomerFeedbackForIndex()
         {
-            List<CustomerFeedBackViewModel> customerFeedBacks = await _context.customerFeedBacks
-                .OrderBy(s => s.Order)
-                .Select(s => new CustomerFeedBackViewModel()
+            List<CustomerFeedBackViewModel> customerFeedbacks = await _context.customerFeedBacks
+                .OrderBy(c => c.Order)
+                .Select(c => new CustomerFeedBackViewModel()
                 {
-                    Order = s.Order,
-                    Avatar = s.Avatar,
-                    Description = s.Description,
-                    Id  = s.Id,
-                    Name = s.Name
+                    Order = c.Order,
+                    Avatar = c.Avatar,
+                    Description = c.Description,
+                    Id = c.Id,
+                    Name = c.Name
                 })
                 .ToListAsync();
-            return customerFeedBacks;
+
+            return customerFeedbacks;
         }
 
-        public async Task<bool> CreateOrEditCustomerFeedback(CustomerFeedBackViewModel customerFeedBack)
+
+        public async Task<bool> CreateOrEditCustomerFeedback(CreateOrEditCustomerFeedbackViewModel customerFeedback)
         {
-            if (customerFeedBack.Id == 0)
+            if (customerFeedback.Id == 0)
             {
                 var newCustomerFeedback = new CustomerFeedBack()
                 {
-                    Avatar = customerFeedBack.Avatar,
-                    Description = customerFeedBack.Description,
-                   Order = customerFeedBack.Order,
-                    Name = customerFeedBack.Name
-
+                    Avatar = customerFeedback.Avatar,
+                    Description = customerFeedback.Description,
+                    Name = customerFeedback.Name,
+                    Order = customerFeedback.Order
                 };
+
                 await _context.customerFeedBacks.AddAsync(newCustomerFeedback);
                 await _context.SaveChangesAsync();
+
                 return true;
-
-
             }
-            CustomerFeedBack currentCustomerFeedback = await GetCustomerFeedbackById(customerFeedBack.Id);
+
+
+            CustomerFeedBack currentCustomerFeedback = await GetCustomerFeedbackById(customerFeedback.Id);
+
             if (currentCustomerFeedback == null) return false;
 
-            currentCustomerFeedback.Avatar = customerFeedBack.Avatar;   
-            currentCustomerFeedback.Description = customerFeedBack.Description;
-            currentCustomerFeedback.Order = customerFeedBack.Order;
-            currentCustomerFeedback.Name    = customerFeedBack.Name;
+            currentCustomerFeedback.Avatar = customerFeedback.Avatar;
+            currentCustomerFeedback.Description = customerFeedback.Description;
+            currentCustomerFeedback.Name = customerFeedback.Name;
+            currentCustomerFeedback.Order = customerFeedback.Order;
 
             _context.customerFeedBacks.Update(currentCustomerFeedback);
             await _context.SaveChangesAsync();
@@ -87,31 +86,31 @@ namespace Resume.Application.Services.Implementations
         {
             if (id == 0) return new CreateOrEditCustomerFeedbackViewModel() { Id = 0 };
 
-            CustomerFeedBack customerFeedBack = await GetCustomerFeedbackById(id);
+            CustomerFeedBack customerFeedback = await GetCustomerFeedbackById(id);
 
-
-            if (customerFeedBack == null) return new CreateOrEditCustomerFeedbackViewModel() { Id = 0 };
+            if (customerFeedback == null) return new CreateOrEditCustomerFeedbackViewModel() { Id = 0 };
 
             return new CreateOrEditCustomerFeedbackViewModel()
             {
-                Id = customerFeedBack.Id,
-                Description = customerFeedBack.Description,
-                Order   = customerFeedBack.Order,
-                //avatar = customerFeedBack.Avatar,
-
+                Id = customerFeedback.Id,
+                Avatar = customerFeedback.Avatar,
+                Description = customerFeedback.Description,
+                Name = customerFeedback.Name,
+                Order = customerFeedback.Order
             };
 
         }
 
         public async Task<bool> DeleteCustomerFeedback(long id)
         {
-            CustomerFeedBack customerFeedBack = await GetCustomerFeedbackById(id);
-            if (customerFeedBack == null) return false;
-            _context.customerFeedBacks.Remove(customerFeedBack);
-            await _context.SaveChangesAsync();
-            return true;
+            CustomerFeedBack customerFeedback = await GetCustomerFeedbackById(id);
 
-            
+            if (customerFeedback == null) return false;
+
+            _context.customerFeedBacks.Remove(customerFeedback);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

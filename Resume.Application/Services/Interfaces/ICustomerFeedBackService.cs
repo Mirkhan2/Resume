@@ -10,11 +10,11 @@ namespace Resume.Application.Services.Interfaces
 {
     public interface ICustomerFeedBackService
     {
-        Task<CustomerFeedBack> GetCustomerFeedbackById(long id);
-        Task<List<CustomerFeedBackViewModel>> GetCustomerFeedBackForIndex();
 
-        Task<bool> CreateOrEditCustomerFeedback(CustomerFeedBackViewModel customerFeedBack);
-        Task<CreateOrEditCustomerFeedbackViewModel> FillCreateOrEditCustomerFeedbackViewModel(long id);  
+        Task<CustomerFeedBack> GetCustomerFeedbackById(long id);
+        Task<List<CustomerFeedBackViewModel>> GetCustomerFeedbackForIndex();
+        Task<bool> CreateOrEditCustomerFeedback(CreateOrEditCustomerFeedbackViewModel customerFeedback);
+        Task<CreateOrEditCustomerFeedbackViewModel> FillCreateOrEditCustomerFeedbackViewModel(long id);
         Task<bool> DeleteCustomerFeedback(long id);
     }
 }
