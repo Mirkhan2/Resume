@@ -5,7 +5,6 @@ namespace Resume.Domain.ViewModels.Skill
 {
     public class CreateOrEditSkillViewModel
     {
-        [Key]
         public long Id { get; set; }
 
 
@@ -23,6 +22,7 @@ namespace Resume.Domain.ViewModels.Skill
 
 
         [Display(Name = "الویت")]
-        public int Order { get; set; } = 0;
+        public int Order { get; set; }
+
     }
 }

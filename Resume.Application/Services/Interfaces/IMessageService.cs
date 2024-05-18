@@ -10,6 +10,8 @@ namespace Resume.Application.Services.Interfaces
     public interface IMessageService
     {
         Task<bool> CreateMessage(CreateMessageViewModel message);
+        Task<List<CreateMessageViewModel>> GetAllMessages();
+        Task<bool> DeleteMessage(long id);
 
     }
 }

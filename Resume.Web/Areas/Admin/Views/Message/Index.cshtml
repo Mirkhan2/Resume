@@ -1,0 +1,65 @@
+﻿@model List<MessageViewModel>
+@using Resume.Domain.ViewModels.Message
+
+@{
+    ViewData["Title"] = "لیست پیام ها";
+}
+
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="page-title">@ViewData["Title"]</h3>
+        </div>
+        <div class="right-title">
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="box">
+                <div class="box-body" id="data-table-box">
+                    <div class="table-responsive">
+                        <table class="table table-hover no-wrap data-table">
+                            <thead>
+                                <tr class="bg-secondary">
+                                    <th>نام</th>
+                                    <th>ایمیل</th>
+                                    <th>متن پیام</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (Model != null && Model.Any())
+                                {
+                                    @foreach (MessageViewModel item in Model)
+                                    {
+                                        <tr id="ListItem-@(item.Id)">
+                                            <td>@item.Name</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.Text</td>
+                                            <td>
+                                                <button onclick="DeleteMessage(@item.Id)" class="btn btn-icon-circle btn-danger">
+                                                    <i class="ti-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- /.content -->

@@ -1,0 +1,134 @@
+﻿@model Resume.Domain.ViewModels.Portofolio.CreateOrEditPortflioViewModel
+
+@{
+    bool isCreate = Model.Id == 0 ? true : false;
+}
+
+
+<form id="PortfolioForm" asp-area="Admin" asp-controller="Portfolio" asp-action="SubmitPortfolioFormModal"
+      data-ajax="true" data-ajax-begin="StartLoading()" data-ajax-success="PortfolioFormSubmited">
+
+    <div class="modal-header">
+        <h5 class="modal-title">@(isCreate ? "ایجاد" : "ویرایش")</h5>
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-12">
+
+                <input type="hidden" asp-for="Image">
+
+                @if (!isCreate)
+                {
+                    <input type="hidden" asp-for="Id" />
+                }
+
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <div class="controls">
+                        <input type="text" asp-for="Title" class="form-control">
+                    </div>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Link"></label>
+                    <div class="controls">
+                        <input type="text" asp-for="Link" class="form-control">
+                    </div>
+                    <span asp-validation-for="Link" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Order"></label>
+                    <div class="controls">
+                        <input type="number" asp-for="Order" class="form-control">
+                    </div>
+                    <span asp-validation-for="Order" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ImageAlt"></label>
+                    <div class="controls">
+                        <input type="text" asp-for="ImageAlt" class="form-control">
+                    </div>
+                    <span asp-validation-for="ImageAlt" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="image-upload">آواتار</label>
+                    <div class="controls">
+                        <input type="file" name="image-upload" id="image-upload" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="PortfolioCategoryId"></label>
+                    <select asp-for="PortfolioCategoryId" class="selectpicker">
+                        @foreach (var item in Model.PortofolioCategories)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-bold btn-pure float-right @(isCreate ? "btn-success" : "btn-warning")">@(isCreate ? "ایجاد" : "ویرایش")</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+
+<script>
+    $("#image-upload").change(function () {
+
+        const imageFile = $('input#image-upload')[0].files[0]
+
+        if (imageFile.name.split('.').pop() === "png" || imageFile.name.split('.').pop() === "jpeg" || imageFile.name.split('.').pop() === "jpg") {
+
+            const fd = new FormData();
+            fd.append("file", imageFile);
+
+            $.ajax({
+                type: "Post",
+                url: "/Admin/Portfolio/UploadPortfolioImageAjax",
+                enctype: "multipart/form-data",
+                data: fd,
+                beforeSend: function () {
+                    ShowMessage("اعلان", "لطفا تا انتهای بارگذاری صبر کنید ...", "info")
+                },
+                success: function (response) {
+                    if (response.status === "Success") {
+                        ShowMessage("اعلان", "فایل مورد نظر با موفقیت بارگذاری شد .", "success");
+                        $("#Image").val(response.imageName);
+                    }
+                    else if (response.status === "Error") {
+                        ShowMessage("خطا", "فرمت فایل باید jpeg ، jpeg یا png باشد", "error")
+                    }
+                },
+                error: function () {
+                    ShowMessage("خطا", "در بارگذاری فایل خطایی رخ داده است .", "error")
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            })
+        }
+        else {
+            ShowMessage("خطا", "فرمت فایل باید jpeg ، jpeg یا png باشد", "error")
+        }
+
+
+    });
+</script>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Resume.Application.Security;
 using Resume.Application.Services.Interfaces;
 using Resume.Domain.Models;
@@ -38,5 +39,31 @@ namespace Resume.Application.Services.Implementations
             return true;
         }
 
+     
+
+        public async Task<List<CreateMessageViewModel>> GetAllMessages()
+        {
+            List<MessageViewModel> messages = await _context.Messages.Select(m => new MessageViewModel()
+            {
+                Id = m.Id,
+                Name = m.Name,
+                Text = m.Text,
+
+            })
+                .ToListAsync();
+
+            return messages;
+
+        }
+        public async Task<bool> DeleteMessage(long id)
+        {
+            Message message = await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
+            if (message != null) return false;
+
+            _context.Messages.Remove(message);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

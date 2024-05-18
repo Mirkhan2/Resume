@@ -46,11 +46,11 @@ namespace Resume.Application.Services.Implementations
 
         public async Task<CreateOrEditSkillViewModel> FillCreateOrEditSkillViewModel(long id)
         {
-           if (id == 0) return new CreateOrEditSkillViewModel() { Id == 0};
+           if (id == 0) return new CreateOrEditSkillViewModel() { id == 0};
            
            Skill skill = await GetSkillById(id);
 
-            if (skill == null) return new CreateOrEditSkillViewModel() { Id == 0 };
+            if (skill == null) return new CreateOrEditSkillViewModel() { id == 0 };
 
             return new CreateOrEditSkillViewModel
             {

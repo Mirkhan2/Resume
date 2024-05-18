@@ -15,9 +15,9 @@ namespace Resume.Web.Areas.Admin.Controllers
     {
         #region Constructor
         private readonly CustomerFeedBackService _customerFeedbackService;
-        public CustomerFeedBackController(ICustomerFeedBackService customerFeedbackService)
+        public CustomerFeedBackController(ICustomerFeedBackService CustomerFeedBackService)
         {
-            _customerFeedbackService = customerFeedbackService;
+            _customerFeedbackService = CustomerFeedBackService;
         }
     
         #endregion
@@ -36,7 +36,7 @@ namespace Resume.Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> SubmitCustomerFeedbackFormModal(CreateOrEditCustomerFeedbackViewModel customerFeedback)
         {
-            var result = await _customerFeedbackService.CreateOrEditCustomerFeedback(customerFeedBack);
+            var result = await _customerFeedbackService.CreateOrEditCustomerFeedback(customerFeedback);
 
             if (result) return new JsonResult(new { status = "Success" });
 

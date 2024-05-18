@@ -13,6 +13,7 @@ namespace Resume.Application.Services.Implementations
 {
     public  class PortofolioService : IPortofolioService
     {
+
         #region Constructor
         private readonly AppDbContext _context;
         public PortofolioService(AppDbContext context)
@@ -20,7 +21,20 @@ namespace Resume.Application.Services.Implementations
             _context = context;
         }
         #endregion
-    
+
+
+
+
+        #region portfolio
+
+
+
+        public async Task<Portofolio> GetPortfolioById(long id)
+        {
+           return await _context.Portofolios.FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+
         public async Task<List<PortofolioViewModel>> GetAllPortfolios()
         {
             List<PortofolioViewModel> portofolios = await _context.Portofolios
@@ -28,19 +42,100 @@ namespace Resume.Application.Services.Implementations
                 .Select(x => new PortofolioViewModel()
                 {
                     Id = x.Id,
-                    Image= x.Image,
-                    ImageAlt= x.ImageAlt,
-                    Link= x.Link,
-                    Order= x.Order,
+                    Image = x.Image,
+                    ImageAlt = x.ImageAlt,
+                    Link = x.Link,
+                    Order = x.Order,
                     PortfolioCategoryName = x.PortfolioCategory.Name,
-                    Title= x.Title
+                    Title = x.Title
 
                 })
                 .ToListAsync();
 
             return portofolios;
-           
+
         }
+
+
+
+        public async Task<CreateOrEditPortflioViewModel> FillCreateOrEditPortfolioViewModal(long id)
+        {
+            if (id == 0) return new CreateOrEditPortflioViewModel() {
+                Id = 0 ,
+                PortofolioCategories = await GetAllPortfolioCategories() 
+            };
+            
+            Portofolio portofolio = await GetPortfolioById(id);
+
+            if(portofolio == null) return new CreateOrEditPortflioViewModel()
+            {
+                Id = 0,
+
+                PortofolioCategories = await GetAllPortfolioCategories()
+            };
+
+            return new CreateOrEditPortflioViewModel()
+            {
+                Id = portofolio.Id,
+                Image = portofolio.Image,
+                ImageAlt = portofolio.ImageAlt,
+                Link = portofolio.Link,
+                Order = portofolio.Order,
+                Title = portofolio.Title,
+                PortfolioCategoryId = portofolio.PortfolioCategoryId,
+                PortofolioCategories = await GetAllPortfolioCategories()
+            };
+        }
+
+
+        public async Task<bool> CreateOrEditPortfolio(CreateOrEditPortflioViewModel portfolio)
+        {
+            if(portfolio.Id == 0)
+            {
+                var newPortfolio = new Portofolio()
+                {
+                    Image = portfolio.Image,
+                    ImageAlt = portfolio.ImageAlt,
+                    Link = portfolio.Link,
+                    Order = portfolio.Order,
+                    Title = portfolio.Title,
+                    PortfolioCategoryId = portfolio.PortfolioCategoryId
+                };
+
+                await _context.Portofolios.AddAsync(newPortfolio);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            Portofolio currentPortfolio = await GetPortfolioById(portfolio.Id);
+            if (currentPortfolio == null) return false;
+
+            currentPortfolio.Image= portfolio.Image;
+            currentPortfolio.ImageAlt = portfolio.ImageAlt;
+            currentPortfolio.Link = portfolio.Link;
+            currentPortfolio.Order = portfolio.Order;
+            currentPortfolio.Title = portfolio.Title;
+            currentPortfolio.PortfolioCategoryId = portfolio.PortfolioCategoryId;
+
+            _context.Portofolios.Update(currentPortfolio);
+            await _context.SaveChangesAsync();
+
+            return true;
+    
+        }
+
+        public async Task<bool> DeleteOrEditPortfolio(long id)
+        {
+            Portofolio portofolio = await GetPortfolioById(id);
+            if (portofolio == null) return false;
+
+            _context.Portofolios.Remove(portofolio);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+
+        #endregion
+
         #region Portfolio Category
         public async Task<PortfolioCategory> GetPortfolioCategoryById(long id)
         {
@@ -122,9 +217,6 @@ namespace Resume.Application.Services.Implementations
 
             return true;
         }
-
-
-
         #endregion
     }
 }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using Resume.Application.Services.Interfaces;
 using Resume.Domain.ViewModels.Information;
 using Resume.Infra.Data.Context;
@@ -19,6 +17,7 @@ namespace Resume.Application.Services.Implementations
         {
             _context = context;
         }
+
         #endregion
 
         public async Task<InformationViewModel> GetInformation()
@@ -49,5 +48,70 @@ namespace Resume.Application.Services.Implementations
             return information;
         }
 
+        public async Task<Information> GetInformationModel()
+        {
+            return await _context.Information.FirstOrDefaultAsync();
+            
+        }
+
+        public async Task<CreateOrEditInformationViewModel> FillCreateOrEditInformationViewModel()
+        {
+            Information information = await GetInformationModel();
+
+            if (information == null) return new CreateOrEditInformationViewModel() { Id = 0 };
+
+            return new CreateOrEditInformationViewModel()
+            {
+                //Id = Information.Id,
+                //Address = information.Address,
+                //Avatar = information.Avatar,
+                //DateOfBirth = information.DateOfBirth,
+                //Email = information.Email,
+                //Job = information.Job,
+                //MapSrc = information.MapSrc,
+                //Name = information.Name,
+                //Phone = information.Phone,
+                //ResumeFile = information.ResumeFile
+            };
+        }
+
+        public Task<bool> CreateOrEditInformation(CreateOrEditInformationViewModel information)
+        {
+            //if (information.Id == 0)
+            //{
+            //    var newInformation = new Information()
+            //    {
+            //        Address = information.Address,
+            //        Avatar = information.Avatar,
+            //        DateOfBirth = information.DateOfBirth,
+            //        Email = information.Email,
+            //        Job = information.Job,
+            //        MapSrc = information.MapSrc,
+            //        Name = information.Name,
+            //        Phone = information.Phone,
+            //        ResumeFile = information.ResumeFile
+            //    };
+
+            //    await _context.Information.AddAsync(newInformation);
+            //    await _context.SaveChangesAsync();
+               return true;
+            //}
+
+            //Information currentInformation = await GetInformationModel();
+
+            //currentInformation.Address = information.Address;
+            //currentInformation.Avatar = information.Avatar;
+            //currentInformation.DateOfBirth = information.DateOfBirth;
+            //currentInformation.Email = information.Email;
+            //currentInformation.Job = information.Job;
+            //currentInformation.MapSrc = information.MapSrc;
+            //currentInformation.Name = information.Name;
+            //currentInformation.Phone = information.Phone;
+            //currentInformation.ResumeFile = information.ResumeFile;
+
+            //_context.information.Update(currentInformation);
+            //await _context.SaveChangesAsync();
+            //return true;
+        }
     }
 }

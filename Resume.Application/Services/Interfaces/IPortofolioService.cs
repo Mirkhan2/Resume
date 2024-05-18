@@ -10,7 +10,17 @@ namespace Resume.Application.Services.Interfaces
 {
     public interface IPortofolioService
     {
+        #region portfolio
+
+        Task<Portofolio> GetPortfolioById(long id);
         Task<List<PortofolioViewModel>> GetAllPortfolios();
+        Task<CreateOrEditPortflioViewModel> FillCreateOrEditPortfolioViewModal(long id);
+        Task<bool> CreateOrEditPortfolio(CreateOrEditPortflioViewModel portfolio);
+
+        Task<bool> DeleteOrEditPortfolio(long id);
+
+        #endregion
+
 
 
         #region Portfolio Category

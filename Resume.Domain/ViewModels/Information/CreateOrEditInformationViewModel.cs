@@ -5,12 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resume.Domain.Models
+namespace Resume.Domain.ViewModels.Information
 {
-    public class Information
+    public class CreateOrEditInformationViewModel
     {
-
-        [Key]
         public long Id { get; set; }
 
 
@@ -55,6 +53,5 @@ namespace Resume.Domain.Models
 
         [Display(Name = "آدرس نقشه")]
         public string MapSrc { get; set; }
-
     }
 }

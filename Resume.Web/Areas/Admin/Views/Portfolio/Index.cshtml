@@ -1,0 +1,71 @@
+﻿@model List<PortofolioViewModel>
+@using Resume.Domain.ViewModels.Portofolio
+@using Resume.Application.Static_Tools
+
+@{
+    ViewData["Title"] = "لیست نمونه کارها";
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="page-title">@ViewData["Title"]</h3>
+        </div>
+        <div class="right-title">
+            <button type="button" onclick="LoadPortfolioFormModal(0)" class="btn btn-circle btn-success mb-5"><i class="mdi mdi-plus"></i></button>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="box">
+                <div class="box-body" id="data-table-box">
+                    <div class="table-responsive">
+                        <table class="table table-hover no-wrap data-table">
+                            <thead>
+                                <tr class="bg-secondary">
+                                    <th>تصویر</th>
+                                    <th>عنوان</th>
+                                    <th>لینک</th>
+                                    <th>الویت</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (Model != null && Model.Any())
+                                {
+                                    @foreach (PortofolioViewModel item in Model)
+                                    {
+                                        <tr id="ListItem-@(item.Id)">
+                                            <td><img width="150" height="150" src="@($"{FilePaths.Portfolio}{item.Image}")" /></td>
+                                            <td>@item.Title</td>
+                                            <td>@item.Link</td>
+                                            <td>@item.Order</td>
+                                            <td>
+                                                <button onclick="LoadPortfolioFormModal(@item.Id)" class="btn btn-icon-circle btn-warning">
+                                                    <i class="ti-marker-alt"></i>
+                                                </button>
+                                                <button onclick="DeletePortfolio(@item.Id)" class="btn btn-icon-circle btn-danger">
+                                                    <i class="ti-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- /.content -->

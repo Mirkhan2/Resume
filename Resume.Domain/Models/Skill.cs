@@ -9,6 +9,7 @@ namespace Resume.Domain.Models
 {
     public class Skill
     {
+
         [Key]
         public long Id { get; set; }
 
