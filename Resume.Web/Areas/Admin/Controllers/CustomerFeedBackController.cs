@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Resume.Application.Extension;
+using Resume.Application.Extension;
 using Resume.Application.Generator;
 using Resume.Application.Services.Implementations;
 using Resume.Application.Services.Interfaces;
@@ -15,9 +16,9 @@ namespace Resume.Web.Areas.Admin.Controllers
     {
         #region Constructor
         private readonly CustomerFeedBackService _customerFeedbackService;
-        public CustomerFeedBackController(ICustomerFeedBackService CustomerFeedBackService)
+        public CustomerFeedBackController(ICustomerFeedBackService customerFeedBackService)
         {
-            _customerFeedbackService = CustomerFeedBackService;
+            _customerFeedbackService = customerFeedBackService;
         }
     
         #endregion

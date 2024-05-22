@@ -17,8 +17,8 @@ namespace Resume.Infra.IoC
             services.AddScoped<ISocialMediaService, SocialMediaService>();
             services.AddScoped<IInformationService, InformationService>();
             services.AddScoped<IMessageService, MessageService>();
-
-
+			services.AddScoped<IPortofolioService, PortofolioService>();
+		
         }
     }
 }

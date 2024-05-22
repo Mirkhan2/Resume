@@ -27,12 +27,12 @@ namespace Resume.Application.Services.Implementations
 
         public async Task<CustomerFeedBack> GetCustomerFeedbackById(long id)
         {
-            return await _context.customerFeedBacks.FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.CustomerFeedBacks.FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<List<CustomerFeedBackViewModel>> GetCustomerFeedbackForIndex()
         {
-            List<CustomerFeedBackViewModel> customerFeedbacks = await _context.customerFeedBacks
+            List<CustomerFeedBackViewModel> customerFeedbacks = await _context.CustomerFeedBacks
                 .OrderBy(c => c.Order)
                 .Select(c => new CustomerFeedBackViewModel()
                 {
@@ -60,7 +60,7 @@ namespace Resume.Application.Services.Implementations
                     Order = customerFeedback.Order
                 };
 
-                await _context.customerFeedBacks.AddAsync(newCustomerFeedback);
+                await _context.CustomerFeedBacks.AddAsync(newCustomerFeedback);
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -76,7 +76,7 @@ namespace Resume.Application.Services.Implementations
             currentCustomerFeedback.Name = customerFeedback.Name;
             currentCustomerFeedback.Order = customerFeedback.Order;
 
-            _context.customerFeedBacks.Update(currentCustomerFeedback);
+            _context.CustomerFeedBacks.Update(currentCustomerFeedback);
             await _context.SaveChangesAsync();
 
             return true;
@@ -107,7 +107,7 @@ namespace Resume.Application.Services.Implementations
 
             if (customerFeedback == null) return false;
 
-            _context.customerFeedBacks.Remove(customerFeedback);
+            _context.CustomerFeedBacks.Remove(customerFeedback);
             await _context.SaveChangesAsync();
 
             return true;

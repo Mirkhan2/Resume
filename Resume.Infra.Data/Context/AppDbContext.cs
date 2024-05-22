@@ -19,7 +19,7 @@ namespace Resume.Infra.Data.Context
 
 		#region DbSet
 		public DbSet<ThingIDo> ThingIDos { get; set; }
-		public DbSet<CustomerFeedBack> customerFeedBacks { get; set; }
+		public DbSet<CustomerFeedBack> CustomerFeedBacks { get; set; }
 		public DbSet<CustomerLogo> CustomerLogos { get; set; }
 		public DbSet<Education> Educations { get; set; }
 		public DbSet<Experience> Experiences { get; set; }
@@ -27,7 +27,7 @@ namespace Resume.Infra.Data.Context
 		public DbSet<Portofolio> Portofolios { get; set; }
 		public DbSet<PortfolioCategory> PortfolioCategories { get; set; }
 		public DbSet<SocialMedia> SocialMedias { get; set; }
-		public DbSet<Information> information { get; set; }
+		public DbSet<Information> Informations { get; set; }
 		public DbSet<Message> Messages { get; set; }
 
 
