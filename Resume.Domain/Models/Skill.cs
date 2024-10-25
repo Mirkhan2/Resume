@@ -29,6 +29,7 @@ namespace Resume.Domain.Models
 
         [Display(Name = "الویت")]
         public int Order { get; set; } = 0;
+        public long Erfahrung  { get; set; }
 
     }
 }
