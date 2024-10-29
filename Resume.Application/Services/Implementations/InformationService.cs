@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using Resume.Application.Services.Interfaces;
+using Resume.Domain.Models;
 using Resume.Domain.ViewModels.Information;
 using Resume.Infra.Data.Context;
 
@@ -50,9 +51,9 @@ namespace Resume.Application.Services.Implementations
 
         public async Task<Information> GetInformationModel()
         {
-            return await _context.Informations.FirstOrDefaultAsync();
+            await _context.Informations.FirstOrDefaultAsync();
             //return await _context.Informations.FirstOrDefaultAsync() ;
-            
+
         }
 
         public async Task<CreateOrEditInformationViewModel> FillCreateOrEditInformationViewModel()
@@ -74,31 +75,42 @@ namespace Resume.Application.Services.Implementations
                 //Phone = information.Phone,
                 //ResumeFile = information.ResumeFile
             };
-        }
+        }S
 
-        public Task<bool> CreateOrEditInformation(CreateOrEditInformationViewModel information)
+        public async Task<bool> CreateOrEditInformation(CreateOrEditInformationViewModel information)
         {
 
 
 
             if (information.Id == 0)
             {
-                var newInformation = new Information()
+                var info = new Information()
                 {
-                    Address = information.Address,
-                    Avatar = information.Avatar,
-                    DateOfBirth = information.DateOfBirth,
-                    Email = information.Email,
-                    Job = information.Job,
-                    MapSrc = information.MapSrc,
-                    Name = information.Name,
-                    Phone = information.Phone,
-                    ResumeFile = information.ResumeFile
+                    Id = information.Id,
+                    ReferenceEquals
+                    = information.ReferenceEquals,
+                    
                 };
-
-                await _context.Information.AddAsync(newInformation);
+                await _context.Informations.AddAsync(info);
                 await _context.SaveChangesAsync();
                 return true;
+
+                //var newInformation = new Information()
+                //{
+                //    Address = information.Address,
+                //    Avatar = information.Avatar,
+                //    DateOfBirth = information.DateOfBirth,
+                //    Email = information.Email,
+                //    Job = information.Job,
+                //    MapSrc = information.MapSrc,
+                //    Name = information.Name,
+                //    Phone = information.Phone,
+                //    ResumeFile = information.ResumeFile
+                //};
+
+                //await _context.Information.AddAsync(newInformation);
+                //await _context.SaveChangesAsync();
+                //return true;
             }
 
             //Information currentInformation = await GetInformationModel();

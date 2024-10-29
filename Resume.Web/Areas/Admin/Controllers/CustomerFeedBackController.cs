@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Resume.Application.Extension;
-using Resume.Application.Extension;
 using Resume.Application.Generator;
 using Resume.Application.Services.Implementations;
 using Resume.Application.Services.Interfaces;

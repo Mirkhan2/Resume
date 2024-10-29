@@ -17,6 +17,7 @@ namespace Resume.Domain.Models
         [Required(ErrorMessage = "لطفا {0} را وارد نمایید")]
         [MaxLength(100, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد")]
         public string Title { get; set; }
+        public int IBC { get; set; }
 
 
         [Display(Name = "تاریخ شروع")]
