@@ -19,7 +19,7 @@ namespace Resume.Domain.ViewModels.Portofolio
         public string Title { get; set; }
 
 
-        [Display(Name = "تاریخ شروع")]
+        [Display(Name = "لینک")]
         [MaxLength(1000, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد")]
         public string Link { get; set; }
 
@@ -35,11 +35,14 @@ namespace Resume.Domain.ViewModels.Portofolio
 
 
         [Display(Name = "الویت")]
-        public int Order { get; set; } 
+        public int Order { get; set; }
+
 
         public long PortfolioCategoryId { get; set; }
 
+
         [NotMapped]
-        public List<PortofolioCategoryViewModel> PortofolioCategories { get; set; }
+        public List<PortofolioCategoryViewModel> PortfolioCategories { get; set; }
+
     }
 }

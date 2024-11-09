@@ -14,8 +14,8 @@ namespace Resume.Web.Areas.Admin.Controllers
     public class CustomerFeedBackController : AdminBaseController
     {
         #region Constructor
-        private readonly CustomerFeedBackService _customerFeedbackService;
-        public CustomerFeedBackController(ICustomerFeedBackService customerFeedBackService)
+        private readonly ICustomerFeedbackService _customerFeedbackService;
+        public CustomerFeedBackController(ICustomerFeedbackService customerFeedBackService)
         {
             _customerFeedbackService = customerFeedBackService;
         }

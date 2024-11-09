@@ -46,7 +46,6 @@ namespace Resume.Web.Areas.Admin.Controllers
 
             return new JsonResult(new { status = "Error" });
             
-
             
         }
     }

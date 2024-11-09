@@ -8,7 +8,7 @@ using Resume.Domain.ViewModels.CustomerFeedBack;
 
 namespace Resume.Application.Services.Interfaces
 {
-    public interface ICustomerFeedBackService
+    public interface ICustomerFeedbackService
     {
 
         Task<CustomerFeedBack> GetCustomerFeedbackById(long id);
@@ -16,5 +16,6 @@ namespace Resume.Application.Services.Interfaces
         Task<bool> CreateOrEditCustomerFeedback(CreateOrEditCustomerFeedbackViewModel customerFeedback);
         Task<CreateOrEditCustomerFeedbackViewModel> FillCreateOrEditCustomerFeedbackViewModel(long id);
         Task<bool> DeleteCustomerFeedback(long id);
+
     }
 }

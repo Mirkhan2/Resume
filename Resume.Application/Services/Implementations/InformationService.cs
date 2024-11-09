@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
+﻿using Microsoft.EntityFrameworkCore;
 using Resume.Application.Services.Interfaces;
 using Resume.Domain.Models;
 using Resume.Domain.ViewModels.Information;
 using Resume.Infra.Data.Context;
+using System.Linq;
+using System.Threading.Tasks;
+
 
 namespace Resume.Application.Services.Implementations
 {
@@ -23,7 +23,7 @@ namespace Resume.Application.Services.Implementations
 
         public async Task<InformationViewModel> GetInformation()
         {
-            InformationViewModel information = await _context.Informations
+            InformationViewModel information = await _context.Information
                 .Select(i => new InformationViewModel()
                 {
 
@@ -45,16 +45,14 @@ namespace Resume.Application.Services.Implementations
             {
                 return new InformationViewModel();
             }
-
+           
             return information;
         }
-
         public async Task<Information> GetInformationModel()
         {
-            await _context.Informations.FirstOrDefaultAsync();
-            //return await _context.Informations.FirstOrDefaultAsync() ;
-
+            return await _context.Information.FirstOrDefaultAsync();
         }
+
 
         public async Task<CreateOrEditInformationViewModel> FillCreateOrEditInformationViewModel()
         {
@@ -64,70 +62,62 @@ namespace Resume.Application.Services.Implementations
 
             return new CreateOrEditInformationViewModel()
             {
-                //Id = Information.Id,
-                //Address = information.Address,
-                //Avatar = information.Avatar,
-                //DateOfBirth = information.DateOfBirth,
-                //Email = information.Email,
-                //Job = information.Job,
-                //MapSrc = information.MapSrc,
-                //Name = information.Name,
-                //Phone = information.Phone,
-                //ResumeFile = information.ResumeFile
+                Id = information.Id,
+                Address = information.Address,
+                Avatar = information.Avatar,
+                DateOfBirth = information.DateOfBirth,
+                Email = information.Email,
+                Job = information.Job,
+                MapSrc = information.MapSrc,
+                Name = information.Name,
+                Phone = information.Phone,
+                ResumeFile = information.ResumeFile
             };
-        }S
+
+        }
 
         public async Task<bool> CreateOrEditInformation(CreateOrEditInformationViewModel information)
         {
-
-
-
             if (information.Id == 0)
             {
-                var info = new Information()
+                var newInformation = new Information()
                 {
-                    Id = information.Id,
-                    ReferenceEquals
-                    = information.ReferenceEquals,
-                    
+                    Address = information.Address,
+                    Avatar = information.Avatar,
+                    DateOfBirth = information.DateOfBirth,
+                    Email = information.Email,
+                    Job = information.Job,
+                    MapSrc = information.MapSrc,
+                    Name = information.Name,
+                    Phone = information.Phone,
+                    ResumeFile = information.ResumeFile
                 };
-                await _context.Informations.AddAsync(info);
+
+                await _context.Information.AddAsync(newInformation);
                 await _context.SaveChangesAsync();
                 return true;
-
-                //var newInformation = new Information()
-                //{
-                //    Address = information.Address,
-                //    Avatar = information.Avatar,
-                //    DateOfBirth = information.DateOfBirth,
-                //    Email = information.Email,
-                //    Job = information.Job,
-                //    MapSrc = information.MapSrc,
-                //    Name = information.Name,
-                //    Phone = information.Phone,
-                //    ResumeFile = information.ResumeFile
-                //};
-
-                //await _context.Information.AddAsync(newInformation);
-                //await _context.SaveChangesAsync();
-                //return true;
             }
 
-            //Information currentInformation = await GetInformationModel();
+            Information currentInformation = await GetInformationModel();
 
-            //currentInformation.Address = information.Address;
-            //currentInformation.Avatar = information.Avatar;
-            //currentInformation.DateOfBirth = information.DateOfBirth;
-            //currentInformation.Email = information.Email;
-            //currentInformation.Job = information.Job;
-            //currentInformation.MapSrc = information.MapSrc;
-            //currentInformation.Name = information.Name;
-            //currentInformation.Phone = information.Phone;
-            //currentInformation.ResumeFile = information.ResumeFile;
+            currentInformation.Address = information.Address;
+            currentInformation.Avatar = information.Avatar;
+            currentInformation.DateOfBirth = information.DateOfBirth;
+            currentInformation.Email = information.Email;
+            currentInformation.Job = information.Job;
+            currentInformation.MapSrc = information.MapSrc;
+            currentInformation.Name = information.Name;
+            currentInformation.Phone = information.Phone;
+            currentInformation.ResumeFile = information.ResumeFile;
 
-            //_context.information.Update(currentInformation);
-            //await _context.SaveChangesAsync();
-            //return true;
+            _context.Information.Update(currentInformation);
+            await _context.SaveChangesAsync();
+            return true;
+
         }
+        //Task<Microsoft.VisualBasic.Information> IInformationService.GetInformationModel()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
     }
 }

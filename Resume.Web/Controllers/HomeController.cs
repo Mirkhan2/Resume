@@ -13,10 +13,10 @@ namespace Resume.Web.Controllers
 		#region Constructor
 
 		private readonly IThingIDoService _thingIDoService;
-		private readonly ICustomerFeedBackService _customerFeedBackService;
+		private readonly ICustomerFeedbackService _customerFeedBackService;
 		private readonly ICustomerLogoService _customerLogoService;	
 
-        public HomeController(IThingIDoService thingIDoService, ICustomerFeedBackService customerFeedBackService, ICustomerLogoService customerLogoService)
+        public HomeController(IThingIDoService thingIDoService, ICustomerFeedbackService customerFeedBackService, ICustomerLogoService customerLogoService)
         {
             _thingIDoService = thingIDoService;
             _customerFeedBackService = customerFeedBackService;
@@ -29,7 +29,7 @@ namespace Resume.Web.Controllers
 			IndexPageViewModel model = new IndexPageViewModel()
 			{
 				ThingIDoList = await _thingIDoService.GetAllThingIDoForIndex(),
-				CustomerFeedBackList = await _customerFeedBackService.GetCustomerFeedBackForIndex(),
+				CustomerFeedBackList = await _customerFeedBackService.GetCustomerFeedbackForIndex(),
 				CustomerLogoList = await _customerLogoService.GetCustomerLogosForIndexPage()
 			};
 

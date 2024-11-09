@@ -23,22 +23,23 @@ namespace Resume.Web.ViewComponents
             _informationService = informationService;   
         }
 
-        public List<SocialMediaViewModel> SocialMedias { get; private set; }
+        //public List<SocialMediaViewModel> SocialMedias { get; private set; }
 
-        private InformationViewModel information;
+        //private InformationViewModel information;
 
 
         #endregion
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            SideBarViewModel model = new SideBarViewModel();
+            SideBarViewModel model = new SideBarViewModel()
             {
-                SocialMedias = await _socialMediaService.GetAllSocialMedia();
-                information = await _informationService.GetInformation();
+                SocialMedias = await _socialMediaService.GetAllSocialMedia(),
+                information = await _informationService.GetInformation()
             };
 
-            return View("SideBar");
+            return View("SideBar", model);
         }
+
     }
 }

@@ -41,29 +41,45 @@ namespace Resume.Application.Services.Implementations
 
      
 
-        public async Task<List<CreateMessageViewModel>> GetAllMessages()
-        {
-            List<MessageViewModel> messages = await _context.Messages.Select(m => new MessageViewModel()
-            {
-                Id = m.Id,
-                Name = m.Name,
-                Text = m.Text,
+        //public async Task<List<CreateMessageViewModel>> GetAllMessages()
+        //{
+        //    List<MessageViewModel> messages = await _context.Messages
+        //       .Select(m => new MessageViewModel()
+        //       {
+        //           Id = m.Id,
+        //           Email = m.Email,
+        //           Name = m.Name,
+        //           Text = m.Text
+        //       })
+        //       .ToListAsync();
 
-            })
-                .ToListAsync();
+        //    return messages;
 
-            return messages;
-
-        }
+        //}
         public async Task<bool> DeleteMessage(long id)
         {
             Message message = await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
-            if (message != null) return false;
+
+            if (message == null) return false;
 
             _context.Messages.Remove(message);
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+       public async Task<List<MessageViewModel>> GetAllMessages()
+        {
+            List<MessageViewModel> messages = await _context.Messages
+                .Select(m => new MessageViewModel()
+                {
+                    Id = m.Id,
+                    Email = m.Email,
+                    Name = m.Name,
+                    Text = m.Text
+                })
+                .ToListAsync();
+            return messages;
         }
     }
 }

@@ -31,13 +31,13 @@ namespace Resume.Application.Services.Implementations
 
         public async Task<Portofolio> GetPortfolioById(long id)
         {
-           return await _context.Portofolios.FirstOrDefaultAsync(p => p.Id == id);
+           return await _context.Portfolios.FirstOrDefaultAsync(p => p.Id == id);
         }
 
 
         public async Task<List<PortofolioViewModel>> GetAllPortfolios()
         {
-            List<PortofolioViewModel> portofolios = await _context.Portofolios
+            List<PortofolioViewModel> portofolios = await _context.Portfolios
                 .OrderBy(x => x.Order)
                 .Select(x => new PortofolioViewModel()
                 {
@@ -62,7 +62,7 @@ namespace Resume.Application.Services.Implementations
         {
             if (id == 0) return new CreateOrEditPortflioViewModel() {
                 Id = 0 ,
-                PortofolioCategories = await GetAllPortfolioCategories() 
+                PortfolioCategories = await GetAllPortfolioCategories() 
             };
             
             Portofolio portofolio = await GetPortfolioById(id);
@@ -71,7 +71,7 @@ namespace Resume.Application.Services.Implementations
             {
                 Id = 0,
 
-                PortofolioCategories = await GetAllPortfolioCategories()
+                PortfolioCategories = await GetAllPortfolioCategories()
             };
 
             return new CreateOrEditPortflioViewModel()
@@ -83,7 +83,7 @@ namespace Resume.Application.Services.Implementations
                 Order = portofolio.Order,
                 Title = portofolio.Title,
                 PortfolioCategoryId = portofolio.PortfolioCategoryId,
-                PortofolioCategories = await GetAllPortfolioCategories()
+                PortfolioCategories = await GetAllPortfolioCategories()
             };
         }
 
@@ -102,7 +102,7 @@ namespace Resume.Application.Services.Implementations
                     PortfolioCategoryId = portfolio.PortfolioCategoryId
                 };
 
-                await _context.Portofolios.AddAsync(newPortfolio);
+                await _context.Portfolios.AddAsync(newPortfolio);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -116,7 +116,7 @@ namespace Resume.Application.Services.Implementations
             currentPortfolio.Title = portfolio.Title;
             currentPortfolio.PortfolioCategoryId = portfolio.PortfolioCategoryId;
 
-            _context.Portofolios.Update(currentPortfolio);
+            _context.Portfolios.Update(currentPortfolio);
             await _context.SaveChangesAsync();
 
             return true;
@@ -128,7 +128,7 @@ namespace Resume.Application.Services.Implementations
             Portofolio portofolio = await GetPortfolioById(id);
             if (portofolio == null) return false;
 
-            _context.Portofolios.Remove(portofolio);
+            _context.Portfolios.Remove(portofolio);
             await _context.SaveChangesAsync();
             return true;
         }

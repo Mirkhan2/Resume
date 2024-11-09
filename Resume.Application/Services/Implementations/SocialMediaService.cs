@@ -19,6 +19,10 @@ namespace Resume.Application.Services.Implementations
             _context = context;
         }
 
+
+
+        #endregion
+
         public async Task<List<SocialMediaViewModel>> GetAllSocialMedia()
         {
             List<SocialMediaViewModel> socialmedia = await _context.SocialMedias
@@ -34,6 +38,6 @@ namespace Resume.Application.Services.Implementations
 
             return socialmedia;
         }
-        #endregion
+    
     }
 }
